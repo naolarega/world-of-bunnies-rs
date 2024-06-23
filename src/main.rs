@@ -1,3 +1,10 @@
+use crate::world::World;
+
+mod bunny;
+mod constants;
+mod utils;
+mod world;
+
 fn main() {
-    println!("Hello, world!");
+    let bunny_world = World::new();
 }
