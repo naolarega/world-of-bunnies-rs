@@ -6,5 +6,12 @@ mod utils;
 mod world;
 
 fn main() {
-    let bunny_world = World::new();
+    let mut bunny_world = World::new();
+
+    loop {
+        match bunny_world.progress() {
+            Ok(events) => {}
+            Err(error) => {}
+        }
+    }
 }

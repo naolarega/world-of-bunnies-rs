@@ -1,5 +1,5 @@
 use crate::{
-    constants::{random_name, Color, Sex},
+    constants::{random_name, Color, Sex, WorldError},
     utils::{simple_rng::SimpleRNG, RandomNumberGenerator},
 };
 
@@ -18,13 +18,27 @@ impl Bunny {
         Self {
             sex: Sex::random_sex(&mut rng),
             color: Color::random_color(&mut rng),
-            age: 1,
+            age: 0,
             name: random_name(&mut rng),
             radioactive: match rng.gen_range(0, 100) {
                 0 | 1 => true,
                 _ => false,
             },
         }
+    }
+
+    pub fn age_by_a_year(&mut self) -> Result<u8, WorldError> {
+        if !self.is_alive() {
+            return Err(WorldError::BunnyDead);
+        } else {
+            self.age += 1;
+        }
+
+        Ok(self.age)
+    }
+
+    pub fn is_alive(&self) -> bool {
+        self.age <= 10 || (self.radioactive && self.age <= 50)
     }
 }
 

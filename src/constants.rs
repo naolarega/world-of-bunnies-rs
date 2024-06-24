@@ -83,3 +83,8 @@ const NAMES: [&str; NAMES_LEN] = [
 pub fn random_name(rng: &mut impl RandomNumberGenerator) -> &'static str {
     NAMES[rng.gen_range(0, NAMES_LEN as u32) as usize]
 }
+
+pub enum WorldError {
+    BunnyDead,
+    AllBunniesDead,
+}

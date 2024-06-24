@@ -1,4 +1,9 @@
-use crate::bunny::Bunny;
+use crate::{bunny::Bunny, constants::WorldError};
+
+pub enum Events<'a> {
+    Born(&'a Bunny),
+    Died(&'a Bunny),
+}
 
 pub struct World {
     bunnies: Vec<Bunny>,
@@ -16,6 +21,16 @@ impl World {
 
                 bunnies
             },
+        }
+    }
+
+    pub fn progress(&mut self) -> Result<Vec<Events>, WorldError> {
+        Ok(vec![])
+    }
+
+    pub fn age_bunnies(&mut self) {
+        for bunny in self.bunnies.iter_mut() {
+            bunny.age_by_a_year();
         }
     }
 }
