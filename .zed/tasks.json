@@ -1,0 +1,7 @@
+[
+  {
+    "label": "Format",
+    "command": "cargo fmt",
+    "reveal": "never"
+  }
+]

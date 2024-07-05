@@ -1,14 +1,17 @@
+use std::hash::Hash;
+
 use crate::{
     constants::{random_name, Color, Sex, WorldError},
     utils::{simple_rng::SimpleRNG, RandomNumberGenerator},
 };
 
 pub struct Bunny {
-    sex: Sex,
-    color: Color,
-    age: u8,
-    name: &'static str,
-    radioactive: bool,
+    pub id: u32,
+    pub sex: Sex,
+    pub color: Color,
+    pub age: u8,
+    pub name: &'static str,
+    pub radioactive: bool,
 }
 
 impl Bunny {
@@ -16,14 +19,12 @@ impl Bunny {
         let mut rng = SimpleRNG::from_current_time();
 
         Self {
+            id: rng.next_u32(),
             sex: Sex::random_sex(&mut rng),
             color: Color::random_color(&mut rng),
             age: 0,
             name: random_name(&mut rng),
-            radioactive: match rng.gen_range(0, 100) {
-                0 | 1 => true,
-                _ => false,
-            },
+            radioactive: matches!(rng.gen_range(0, 100), 0 | 1),
         }
     }
 
@@ -39,6 +40,20 @@ impl Bunny {
 
     pub fn is_alive(&self) -> bool {
         self.age <= 10 || (self.radioactive && self.age <= 50)
+    }
+}
+
+impl PartialEq for Bunny {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+    }
+}
+
+impl Eq for Bunny {}
+
+impl Hash for Bunny {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        state.write_u32(self.id);
     }
 }
 
