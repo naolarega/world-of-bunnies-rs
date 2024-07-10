@@ -3,5 +3,17 @@
     "label": "Format",
     "command": "cargo fmt",
     "reveal": "never"
+  },
+  {
+    "label": "Check",
+    "command": "cargo check"
+  },
+  {
+    "label": "Test",
+    "command": "cargo test -- --show-output"
+  },
+  {
+    "label": "Clippy",
+    "command": "cargo clippy"
   }
 ]

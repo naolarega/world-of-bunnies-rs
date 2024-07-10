@@ -16,7 +16,7 @@ impl Sex {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Color {
     White,
     Brown,
